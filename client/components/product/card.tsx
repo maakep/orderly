@@ -58,8 +58,3 @@ const Price = styled.div`
   font-size: 14px;
   font-weight: bold;
 `;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;

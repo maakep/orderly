@@ -12,4 +12,9 @@ export const COLORS = {
     background: '#d2d2d2',
     color: '#000000',
   },
+  product: {
+    atc: {
+      background: '#9dc4ff',
+    },
+  },
 };
