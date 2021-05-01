@@ -1,6 +1,5 @@
 import * as http from 'http';
 import app from './app';
-import { TokenSessionKey } from '../shared/constants';
 import { OAuth2Client } from 'google-auth-library';
 import keys from '../keys';
 
@@ -16,10 +15,7 @@ export class Server {
     this.googleVerificationClient = new OAuth2Client(keys.gOauthClientId);
 
     console.log('Listening on :' + this.port);
-    this.configureRouting();
   }
-
-  configureRouting() {}
 
   async verifyTokenAndGetPayload(token: string): Promise<VerificationPayload> {
     if (token == null) {
