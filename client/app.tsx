@@ -13,6 +13,7 @@ import { ProductPage } from './pages/product-page';
 import { StartPage } from './pages/start-page';
 import { NotFound } from './pages/not-found';
 import styled from 'styled-components';
+import { ProductCategoryContext } from './components/product-context';
 
 export default function App() {
   const [
@@ -35,26 +36,28 @@ export default function App() {
   ) : (
     <ProvideAuth>
       <BrowserRouter>
-        <SiteWrapper>
-          <Header menuItems={productsAndCategories.categories}></Header>
-          <Body>
-            <Switch>
-              <Route exact path={'/'}>
-                <StartPage />
-              </Route>
-              <Route exact path={'/:category'}>
-                <CategoryPage />
-              </Route>
-              <Route exact path={'/:category/:product'}>
-                <ProductPage />
-              </Route>
-              <Route>
-                <NotFound />
-              </Route>
-            </Switch>
-          </Body>
-          <Footer />
-        </SiteWrapper>
+        <ProductCategoryContext.Provider value={productsAndCategories}>
+          <SiteWrapper>
+            <Header menuItems={productsAndCategories.categories}></Header>
+            <Body>
+              <Switch>
+                <Route exact path={'/'}>
+                  <StartPage />
+                </Route>
+                <Route exact path={'/:category'}>
+                  <CategoryPage />
+                </Route>
+                <Route exact path={'/:category/:product'}>
+                  <ProductPage />
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+              </Switch>
+            </Body>
+            <Footer />
+          </SiteWrapper>
+        </ProductCategoryContext.Provider>
       </BrowserRouter>
     </ProvideAuth>
   );

@@ -10,6 +10,7 @@ export type Product = {
   image: string;
   size: string;
   status: ProductStatus;
+  id: number;
 };
 
 export type Category = {
@@ -53,7 +54,7 @@ export async function loadData(): Promise<ProductsAndCategories> {
 }
 
 function extractProducts(rows: GoogleSpreadsheetRow[]): Product[] {
-  return rows.map((r) => {
+  return rows.map((r, id) => {
     let i = 0;
     let data = r['_rawData'];
 
@@ -61,13 +62,14 @@ function extractProducts(rows: GoogleSpreadsheetRow[]): Product[] {
       name: data[i++],
       description: data[i++],
       price: data[i++],
-      mainCategory: data[i++],
+      mainCategory: data[i++].toLowerCase(),
       subCategories: (data[i++] as string)?.split(',') || [],
       image: data[i++] || 'https://via.placeholder.com/100?text=x',
       size: data[i++] || '',
       status:
         ProductStatus[data[i++] as keyof typeof ProductStatus] ||
         ProductStatus.Hidden,
+      id: id,
     };
   });
 }
