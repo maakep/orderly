@@ -8,6 +8,11 @@ import { get } from './helpers/postget';
 import { ProvideAuth } from './login/use-auth';
 
 import { ProductsAndCategories } from '../server/product-repo';
+import { CategoryPage } from './pages/category-page';
+import { ProductPage } from './pages/product-page';
+import { StartPage } from './pages/start-page';
+import { NotFound } from './pages/not-found';
+import styled from 'styled-components';
 
 export default function App() {
   const [
@@ -30,19 +35,33 @@ export default function App() {
   ) : (
     <ProvideAuth>
       <BrowserRouter>
-        <Header menuItems={productsAndCategories.categories}></Header>
-        <Body>
-          <Switch>
-            <Route exact path={'/'}>
-              <div>Start page!</div>
-            </Route>
-            <Route>
-              <div>404 not found :)</div>
-            </Route>
-          </Switch>
-        </Body>
-        <Footer />
+        <SiteWrapper>
+          <Header menuItems={productsAndCategories.categories}></Header>
+          <Body>
+            <Switch>
+              <Route exact path={'/'}>
+                <StartPage />
+              </Route>
+              <Route exact path={'/:category'}>
+                <CategoryPage />
+              </Route>
+              <Route exact path={'/:category/:product'}>
+                <ProductPage />
+              </Route>
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </Body>
+          <Footer />
+        </SiteWrapper>
       </BrowserRouter>
     </ProvideAuth>
   );
 }
+
+const SiteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;

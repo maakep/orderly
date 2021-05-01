@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createContext, useContext, useState } from 'react';
-import { TokenSessionKey } from '../../shared/constants';
+import { TOKEN_SESSION_KEY } from '../../shared/constants';
 import { getCookie } from '../helpers/cookie-helper';
 
 const authContext = createContext(null);
@@ -15,7 +15,7 @@ export const useAuth = () => {
 };
 
 function useProvideAuth() {
-  const [user, setUser] = useState<string>(getCookie(TokenSessionKey));
+  const [user, setUser] = useState<string>(getCookie(TOKEN_SESSION_KEY));
 
   // const signin = (user: GoogleLoginResponse) => {
   const signin = (user: string) => {

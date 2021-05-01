@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Category } from '../../server/product-repo';
 import { Cart } from '../icons/cart';
+import { COLORS, CONTENT_BODY_WIDTH } from '../../shared/constants';
 
 type PropType = {
   menuItems: Category[];
@@ -11,21 +12,23 @@ type PropType = {
 export const Header = (props: PropType) => {
   return (
     <HeaderWrapper>
-      <LeftGroup>
-        <LogoLink to={'/'}>
-          <Logo src="https://via.placeholder.com/100?text=x" />
-        </LogoLink>
-        {props.menuItems.map((c) => (
-          <Navigation key={c.name} to={`/${c.name.toLowerCase()}`}>
-            {c.name} ({c.size})
-          </Navigation>
-        ))}
-      </LeftGroup>
-      <RightGroup>
-        <CartWrapper>
-          <CartIcon x={28} y={28} />
-        </CartWrapper>
-      </RightGroup>
+      <HeaderContent>
+        <LeftGroup>
+          <LogoLink to={'/'}>
+            <Logo src="https://via.placeholder.com/100?text=x" />
+          </LogoLink>
+          {props.menuItems.map((c) => (
+            <Navigation key={c.name} to={`/${c.name.toLowerCase()}`}>
+              {c.name} ({c.size})
+            </Navigation>
+          ))}
+        </LeftGroup>
+        <RightGroup>
+          <CartWrapper>
+            <CartIcon x={28} y={28} />
+          </CartWrapper>
+        </RightGroup>
+      </HeaderContent>
     </HeaderWrapper>
   );
 };
@@ -43,6 +46,7 @@ const CartIcon = styled(Cart)``;
 const LogoLink = styled(Link)`
   height: 100%;
   padding-right: 20px;
+  min-width: 65px;
 `;
 
 const Logo = styled.img`
@@ -54,8 +58,14 @@ const HeaderWrapper = styled.header`
   height: 65px;
   display: flex;
   flex-direction: row;
-  background-color: #d2d2d2;
+  background-color: ${COLORS.header.background};
+  justify-content: center;
+`;
+
+const HeaderContent = styled.div`
+  display: flex;
   justify-content: space-between;
+  width: ${CONTENT_BODY_WIDTH}px;
 `;
 
 const LeftGroup = styled.div`
@@ -66,5 +76,9 @@ const LeftGroup = styled.div`
 const RightGroup = styled(LeftGroup)``;
 
 const Navigation = styled(Link)`
-  padding: 10px;
+  height: 100%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  color: ${COLORS.header.color};
 `;
